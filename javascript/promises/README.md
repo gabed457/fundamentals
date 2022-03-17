@@ -1,6 +1,6 @@
-#Promise Fundamentals
-##Promise Keywords
-###Async
+# Promise Fundamentals
+## Promise Keywords
+### Async
 Aysnc makes a function a promise and gives us access to all the underlying promise methods.
 ```js
 async function asyncExample() {
@@ -38,7 +38,7 @@ asyncExample()
     .catch(err => console.log(err))
     .finally(() => console.log('finally'));
 ```
-###Await
+### Await
 The await keyword is used to wait for a promise to resolve in a block.
 ```js
 function resolveAfter2Seconds() {
@@ -68,8 +68,8 @@ promiseA.then( (val) => console.log("This logs second:",val) );
 console.log("This logs first");
 ```
 
-##Promise Methods
-###Promise.all()
+## Promise Methods
+### Promise.all()
 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all">Reference</a>
 
 `Promise.all` waits for all the promises to resolve or for the first one to reject, then returns a Promise that resolves to an array of input Promises.
