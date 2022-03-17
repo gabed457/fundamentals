@@ -123,16 +123,84 @@ import fetch from 'node-fetch';
 // // At this point, "promiseA" is already settled.
 // promiseA.then( (val) => console.log("asynchronous logging has val:",val) );
 // console.log("immediate logging");
-const promise1 = Promise.resolve(3);
-const promise2 = 42;
-const promise3 = new Promise((resolve, reject) => {
-    setTimeout(resolve, 100, 'foo');
-});
-const promise4 = new Promise((resolve, reject) => {
-    setTimeout(resolve, 30000, 'foo');
-});
+// var sayHello = new Promise(function (resolve, reject) {
+//     // In 5 seconds, resolve the Promise.
+//     // Pass along "Hi, universe!" to any callback methods
+//     setTimeout(function () {
+//         resolve('Hi, universe!');
+//     }, 5000);
+// });
+// sayHello.then(res => {
+//     console.log(res);
+// })
+// var sayHello2 = function (resolve, reject) {
+//     // In 5 seconds, resolve the Promise.
+//     // Pass along "Hi, universe!" to any callback methods
+//     setTimeout(function () {
+//         resolve('Hi, universe 2!');
+//     }, 5000);
+// };
+// sayHello2(function(response){
+//     console.log(response);
+// });
+// function getYearlyTakeHome(salary, callback) {
+//     return salary * .75;
+// }
+//
+// function getMonthlyTakeHome(yearlyTakeHome, callback) {
+//     // setTimeout(() => {
+//     //     return yearlyTakeHome / 12;
+//     // },200)
+//     return yearlyTakeHome / 12;
+//
+//
+// }
+//
+// function getWeeklyTakeHome(monthlyTakeHome, callback) {
+//     return monthlyTakeHome / 4;
+// }
+//
+// let s = getYearlyTakeHome(250000);
+// s = getMonthlyTakeHome(s);
+// s = getWeeklyTakeHome(s);
+// console.log(s);
 
-promise4.then(res => console.log(res));
-Promise.all([promise1, promise2, promise3]).then((values) => {
-    console.log(values);
-});
+function calcPay() {
+    this.s = 250000;
+
+    this.getYearlyTakeHome = function() {
+        setTimeout(() => { //Don't use function, use arrow function so 'this' refers to 'func' and not window
+            console.log('getYearlyTakeHome');
+            this.s = this.s * .75;
+        }, 500);
+    }
+    this.getMonthlyTakeHome = function () {
+        console.log('getMonthlyTakeHome');
+        this.s = this.s / 12;
+    }
+    this.getWeeklyTakeHome = function () {
+        console.log('getWeeklyTakeHome');
+        this.s = this.s / 4;
+    }
+}
+
+var pay = new calcPay();
+pay.getYearlyTakeHome();
+pay.getMonthlyTakeHome();
+pay.getWeeklyTakeHome();
+console.log(pay.s);
+
+
+// const promise1 = Promise.resolve(3);
+// const promise2 = 42;
+// const promise3 = new Promise((resolve, reject) => {
+//     setTimeout(resolve, 100, 'foo');
+// });
+// const promise4 = new Promise((resolve, reject) => {
+//     setTimeout(resolve, 30000, 'foo');
+// });
+//
+// promise4.then(res => console.log(res));
+// Promise.all([promise1, promise2, promise3]).then((values) => {
+//     console.log(values);
+// });

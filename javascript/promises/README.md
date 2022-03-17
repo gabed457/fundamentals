@@ -1,5 +1,75 @@
 # Promise Fundamentals
-## Promise Keywords
+## Promise Basics
+### Creating a Promise
+One way you can create a promise is through the built in Promise Object
+```js
+var sayHello = new Promise(function (resolve, reject) {
+	// In 5 seconds, resolve the Promise.
+	// Pass along "Hi, universe!" to any callback methods
+	setTimeout(function () {
+		resolve('Hi, universe!');
+	}, 5000);
+});
+```
+## Why we need promises
+Let's use a basic example that calculates take home pay.
+
+```js
+function calcPay() {
+    this.s = 250000;
+
+    this.getYearlyTakeHome = function() {
+        this.s = this.s * .75;
+    }
+    this.getMonthlyTakeHome = function () {
+        this.s = this.s / 12;
+    }
+    this.getWeeklyTakeHome = function () {
+        this.s = this.s / 4;
+    }
+}
+
+var pay = new calcPay();
+pay.getYearlyTakeHome();
+pay.getMonthlyTakeHome();
+pay.getWeeklyTakeHome();
+console.log(pay.s);
+//OUTPUT: 3906.25
+```
+Let's change the function a bit and make the `getYearlyTakeHome()` function slower than the rest.
+
+```js
+function calcPay() {
+    this.s = 250000;
+
+    this.getYearlyTakeHome = function() {
+        setTimeout(() => {
+            this.s = this.s * .75;
+        }, 500)
+    }
+    this.getMonthlyTakeHome = function () {
+        this.s = this.s / 12;
+    }
+    this.getWeeklyTakeHome = function () {
+        this.s = this.s / 4;
+    }
+}
+
+var pay = new calcPay();
+pay.getYearlyTakeHome();
+pay.getMonthlyTakeHome();
+pay.getWeeklyTakeHome();
+console.log(pay.s);
+//OUTPUT: 5208.333333333333
+```
+As you can see the other functions end up running before the getWeeklyTakeHome function which gives us the wrong answer.
+
+Some developers will use callbacks 
+### Useful Terms
+* Fulfiled - The action relating to the promise succeeded
+* Rejected - The action relating to the promise failed
+* Pending - Hasn't fulfilled or rejected yet
+* Settled - Has fulfilled or rejected
 ### Async
 Aysnc makes a function a promise and gives us access to all the underlying promise methods.
 ```js
