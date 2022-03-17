@@ -314,3 +314,26 @@ Promise.all([p1, p2, p3]).then(values => {
     console.log(values); // [3, 1337, "foo"]
 });
 ```
+
+Table
+```js
+function Person(firstName, lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+}
+
+var john = new Person("John", "Smith");
+var jane = new Person("Jane", "Doe");
+var emily = new Person("Emily", "Jones");
+
+console.table([john, jane, emily]);
+```
+```bash
+┌─────────┬───────────┬──────────┐
+│ (index) │ firstName │ lastName │
+├─────────┼───────────┼──────────┤
+│    0    │  'John'   │ 'Smith'  │
+│    1    │  'Jane'   │  'Doe'   │
+│    2    │  'Emily'  │ 'Jones'  │
+└─────────┴───────────┴──────────┘
+```
