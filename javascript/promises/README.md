@@ -15,21 +15,24 @@ var sayHello = new Promise(function (resolve, reject) {
 Let's use a basic example that calculates take home pay.
 
 ```js
-function calcPay() {
-    this.s = 250000;
+class calcPay {
+    constructor (p) {
+        this.s = p;
+    }
+    getYearlyTakeHome () {
+        this.s =  this.s * .75;
+    }
+    getMonthlyTakeHome () {
+        this.s =  this.s / 12;
 
-    this.getYearlyTakeHome = function() {
-        this.s = this.s * .75;
     }
-    this.getMonthlyTakeHome = function () {
-        this.s = this.s / 12;
-    }
-    this.getWeeklyTakeHome = function () {
-        this.s = this.s / 4;
+    getWeeklyTakeHome () {
+        this.s =  this.s / 4;
     }
 }
 
-var pay = new calcPay();
+var pay = new calcPay(250000);
+console.log(pay.s);
 pay.getYearlyTakeHome();
 pay.getMonthlyTakeHome();
 pay.getWeeklyTakeHome();
@@ -39,23 +42,26 @@ console.log(pay.s);
 Let's change the function a bit and make the `getYearlyTakeHome()` function slower than the rest.
 
 ```js
-function calcPay() {
-    this.s = 250000;
-
-    this.getYearlyTakeHome = function() {
+class calcPay {
+    constructor (p) {
+        this.s = p;
+    }
+    getYearlyTakeHome () {
         setTimeout(() => {
-            this.s = this.s * .75;
-        }, 500)
+            this.s =  this.s * .75;
+        },500);
+
     }
-    this.getMonthlyTakeHome = function () {
-        this.s = this.s / 12;
+    getMonthlyTakeHome () {
+        this.s =  this.s / 12;
+
     }
-    this.getWeeklyTakeHome = function () {
-        this.s = this.s / 4;
+    getWeeklyTakeHome () {
+        this.s =  this.s / 4;
     }
 }
 
-var pay = new calcPay();
+var pay = new calcPay(250000);
 pay.getYearlyTakeHome();
 pay.getMonthlyTakeHome();
 pay.getWeeklyTakeHome();
@@ -64,7 +70,74 @@ console.log(pay.s);
 ```
 As you can see the other functions end up running before the getWeeklyTakeHome function which gives us the wrong answer.
 
-Some developers will use callbacks 
+Some developers will use callbacks to fix this issue like below.
+```js
+class calcPay {
+    constructor (p) {
+        this.s = p;
+    }
+    getYearlyTakeHome (callback) {
+        setTimeout(() => {
+            this.s =  this.s * .75;
+            callback();
+        },500);
+
+    }
+    getMonthlyTakeHome (callback) {
+        this.s =  this.s / 12;
+        callback();
+
+    }
+    getWeeklyTakeHome (callback) {
+        this.s =  this.s / 4;
+        callback();
+    }
+}
+
+var pay = new calcPay(250000);
+pay.getYearlyTakeHome(function () {
+    pay.getMonthlyTakeHome(function () {
+        pay.getWeeklyTakeHome(function () {
+            console.log(pay.s);
+        });
+    });
+});__
+```
+As you can see although we got the right answer this style of programming becomes really hairy and hard to main and isn't very readable.
+
+Another solution to this issue is to use a Promise.
+```js
+class calcPay {
+    constructor(p) {
+        this.s = p;
+    }
+
+    getYearlyTakeHome() {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                this.s = this.s * .75;
+                resolve(this);
+            }, 500);
+        })
+    }
+
+    getMonthlyTakeHome() {
+        this.s = this.s / 12;
+
+    }
+
+    getWeeklyTakeHome() {
+        this.s = this.s / 4;
+    }
+}
+
+var pay = new calcPay(250000);
+pay.getYearlyTakeHome()
+    .then(pay.getMonthlyTakeHome())
+    .then(pay.getWeeklyTakeHome())
+    .then(() => console.log(pay.s));
+//OUTPUT: 3906.25
+```
 ### Useful Terms
 * Fulfiled - The action relating to the promise succeeded
 * Rejected - The action relating to the promise failed
