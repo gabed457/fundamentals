@@ -47,7 +47,7 @@ function main() {
     pay.getMonthlyTakeHome();
     pay.getWeeklyTakeHome();
     console.log(pay.s);
-//OUTPUT: 3906.25
+    //OUTPUT: 3906.25
 }
 ```
 
@@ -82,7 +82,7 @@ function main() {
     pay.getMonthlyTakeHome();
     pay.getWeeklyTakeHome();
     console.log(pay.s);
-//OUTPUT: 5208.333333333333
+    //OUTPUT: 5208.333333333333
 }
 ```
 
@@ -122,12 +122,11 @@ function main() {
         pay.getMonthlyTakeHome(function () {
             pay.getWeeklyTakeHome(function () {
                 console.log(pay.s);
+                //OUTPUT: 3906.25
             });
         });
     });
 }
-
-__
 ```
 
 As you can see although we got the right answer this style of programming becomes really hairy and hard to maintain and
@@ -166,7 +165,7 @@ function main() {
         .then(pay.getMonthlyTakeHome())
         .then(pay.getWeeklyTakeHome())
         .then(() => console.log(pay.s));
-//OUTPUT: 3906.25
+    //OUTPUT: 3906.25
 }
 ```
 
@@ -205,7 +204,7 @@ async function main() {
     await pay.getMonthlyTakeHome();
     await pay.getWeeklyTakeHome();
     console.log(pay.s);
-//OUTPUT: 3906.25
+    //OUTPUT: 3906.25
 }
 ```
 
