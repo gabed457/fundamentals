@@ -1,5 +1,25 @@
 # Promise Fundamentals
 
+##Table of Contents
+- [Promise Fundamentals](#promise-fundamentals)
+  * [Promise Basics](#promise-basics)
+    + [Creating a Promise](#creating-a-promise)
+  * [Why we need promises](#why-we-need-promises)
+    + [Useful Terms](#useful-terms)
+    + [Async](#async)
+    + [Await](#await)
+  * [Promise Methods](#promise-methods)
+    + [Promise.then()](#promisethen--)
+    + [Promise.catch()](#promisecatch--)
+    + [Promise.finally()](#promisefinally--)
+    + [Promise.reject()](#promisereject--)
+    + [Promise.resolve()](#promiseresolve--)
+    + [Promise.all()](#promiseall--)
+    + [Promise.allSettled()](#promiseallsettled--)
+    + [Promise.any()](#promiseany--)
+    + [Promise.race()](#promiserace--)
+
+
 ## Promise Basics
 
 ### Creating a Promise
