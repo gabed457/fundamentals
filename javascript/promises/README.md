@@ -1,6 +1,6 @@
 # Promise Fundamentals
 
-##Table of Contents
+## Table of Contents
 - [Promise Fundamentals](#promise-fundamentals)
   * [Promise Basics](#promise-basics)
     + [Creating a Promise](#creating-a-promise)
