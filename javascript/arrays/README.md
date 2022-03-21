@@ -3,6 +3,19 @@
 This README assumes you understand what an array is and how it works on a basic level. We'll be going over primarily
 Array Methods here.
 
+- [Array Fundamentals](#array-fundamentals)
+    + [Array.sort](#arraysort)
+    + [Array.filter](#arrayfilter)
+    + [Array.forEach](#arrayforeach)
+    + [Array.map](#arraymap)
+    + [Array.some](#arraysome)
+    + [Array.every](#arrayevery)
+    + [Array.includes](#arrayincludes)
+    + [Array.indexOf](#arrayindexof)
+    + [Array.find](#arrayfind)
+    + [Array.findIndex](#arrayfindindex)
+    + [Array.reduce](#arrayreduce)
+
 ### Array.sort
 
 This method is probably the easiest misunderstood as most of the time your compare function has been used before and can
