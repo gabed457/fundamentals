@@ -1,4 +1,4 @@
-const numArr = [1, 3, 200, 5, 0];
+// const numArr = [1, 3, 200, 5, 0];
 // numArr.sort((a, b) => {
 //     if(a-b < 0){
 //         return -1;
@@ -10,7 +10,7 @@ const numArr = [1, 3, 200, 5, 0];
 //         return 0;
 //     }
 // });
-numArr.sort((a,b) => b-a);
+// numArr.sort((a,b) => b-a);
 // console.log(numArr);
 
 // const strArr = ['banana','apple', 'Apple','doctor','zed','elephant'];
@@ -65,6 +65,7 @@ numArr.sort((a,b) => b-a);
 //
 // const employees = [
 //     {name:'george',salary:30000},
+//     {name:'George',salary:30000},
 //     {name:'John',salary:25000},
 //     {name:'sally',salary:363846},
 //     {name:'Sam',salary:1000000},
@@ -72,13 +73,11 @@ numArr.sort((a,b) => b-a);
 //     {name:'jacob',salary:30000}
 // ];
 // employees.sort((a,b) => {
-//     a.name = a.name.toLowerCase();
-//     b.name = b.name.toLowerCase();
 //     if(a.salary === b.salary) {
-//         if(a > b){
+//         if(a.name.toLowerCase() > b.name.toLowerCase()){
 //             return 1;
 //         }
-//         else if(a < b) {
+//         else if(a.name.toLowerCase() < b.name.toLowerCase()) {
 //             return -1;
 //         }
 //         else {
@@ -90,3 +89,38 @@ numArr.sort((a,b) => b-a);
 //     }
 // });
 // console.log(employees);
+// const strArr = ['banana', 'apple', 'Apple', 'doctor', 'zed', 'elephant'];
+// strArr.sort((a, b) => {
+//     if (a.toLowerCase() < b.toLowerCase()) {
+//         return 1;
+//     } else if (a.toLowerCase() > b.toLowerCase()) {
+//         return -1;
+//     } else {
+//         //a === b return 0
+//         return 0;
+//     }
+// });
+// console.log(strArr);
+
+// const numArr = [-1,0,1,-25,23];
+// let nonNegativeArr = numArr.filter(el => el >= 0);
+// console.log(nonNegativeArr);
+// let topEarners = employees.filter((el,i,arr) => {
+//     console.log(el,i,arr);
+//     return el => el.salary >= 100000;
+// });
+// console.log(topEarners);
+const employees = [
+    {name:'george',salary:30000, assistants: ['John']},
+    {name:'George',salary:30000},
+    {name:'John',salary:25000},
+    {name:'sally',salary:363846},
+    {name:'Sam',salary:1000000, assistants: ['sally','George']},
+    {name:'gabe',salary:165000},
+    {name:'jacob',salary:30000}
+];
+let employeesWithMultipleAssistants = employees.filter(el => {
+    console.log(el.assistants?.length > -1);
+    return el.assistants?.length > 1;
+});
+console.log(employeesWithMultipleAssistants);

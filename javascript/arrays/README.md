@@ -110,11 +110,9 @@ Here's how you could do it if you didn't want the casing to matter when you sort
 ```js
 const strArr = ['banana', 'apple', 'Apple', 'doctor', 'zed', 'elephant'];
 strArr.sort((a, b) => {
-    a = a.toLowerCase();
-    b = b.toLowerCase();
-    if (a > b) {
+    if (a.toLowerCase() > b.toLowerCase()) {
         return 1;
-    } else if (a < b) {
+    } else if (a.toLowerCase() < b.toLowerCase()) {
         return -1;
     } else {
         //a === b return 0
@@ -132,11 +130,9 @@ To change the above order to descending all we have to do is change the rules on
 ```js
 const strArr = ['banana', 'apple', 'Apple', 'doctor', 'zed', 'elephant'];
 strArr.sort((a, b) => {
-    a = a.toLowerCase();
-    b = b.toLowerCase();
-    if (a < b) {
+    if (a.toLowerCase() < b.toLowerCase()) {
         return 1;
-    } else if (a > b) {
+    } else if (a.toLowerCase() > b.toLowerCase()) {
         return -1;
     } else {
         //a === b return 0
@@ -227,27 +223,33 @@ requirement is that the employees are first sorted by salary, but if the salary 
 case-insensitive.
 
 ```js
+const customCompareFunc = require('./customFunctions');
+const mixedArr = ['banana', 500, 'apple', 2, 'Apple','doctor', 25, 'zed','elephant', 0];
+mixedArr.sort(customCompareFunc.strDescNumAsc);
+
 const employees = [
-    {name: 'george', salary: 30000},
-    {name: 'John', salary: 25000},
-    {name: 'sally', salary: 363846},
-    {name: 'Sam', salary: 1000000},
-    {name: 'gabe', salary: 165000},
-    {name: 'jacob', salary: 30000}
+    {name:'george',salary:30000},
+    {name:'George',salary:30000},
+    {name:'John',salary:25000},
+    {name:'sally',salary:363846},
+    {name:'Sam',salary:1000000},
+    {name:'gabe',salary:165000},
+    {name:'jacob',salary:30000}
 ];
-employees.sort((a, b) => {
-    a.name = a.name.toLowerCase();
-    b.name = b.name.toLowerCase();
-    if (a.salary === b.salary) {
-        if (a > b) {
+employees.sort((a,b) => {
+    if(a.salary === b.salary) {
+        if(a.name.toLowerCase() > b.name.toLowerCase()){
             return 1;
-        } else if (a < b) {
+        }
+        else if(a.name.toLowerCase() < b.name.toLowerCase()) {
             return -1;
-        } else {
+        }
+        else {
             return 0;
         }
-    } else {
-        return b.salary - a.salary;
+    }
+    else {
+        return b.salary-a.salary;
     }
 });
 ```
@@ -256,13 +258,91 @@ Output:
 
 ```js
 [
-    {name: 'sam', salary: 1000000},
-    {name: 'sally', salary: 363846},
-    {name: 'gabe', salary: 165000},
-    {name: 'george', salary: 30000},
-    {name: 'jacob', salary: 30000},
-    {name: 'john', salary: 25000}
+    { name: 'Sam', salary: 1000000 },
+    { name: 'sally', salary: 363846 },
+    { name: 'gabe', salary: 165000 },
+    { name: 'george', salary: 30000 },
+    { name: 'George', salary: 30000 },
+    { name: 'jacob', salary: 30000 },
+    { name: 'John', salary: 25000 }
 ]
 ```
+
+### Array.filter
+
+This method used a lot especially when getting data from a database or API. 
+This method allows you to remove items in the array according to the standard that you create.
+
+
+Let's do an example that removes all the negative numbers.
+```js
+const numArr = [-1,0,1,-25,23];
+numArr.filter(el => el >= 0);
+```
+Output: 
+```js
+[ -1, 0, 1, -25, 23 ]
+```
+You might have expected it to remove the negative elements, however it doesn't because the filter method returns a new array, it doesn't affect the array you passed in.
+
+So by creating a new array and setting it equal to the function we are able to log the correct output.
+```js
+const numArr = [-1,0,1,-25,23];
+let nonNegativeArr = numArr.filter(el => el >= 0);
+```
+Output:
+```js
+[ 0, 1, 23 ]
+```
+
+There are 3 parameters that you can access in the filter method.
+1. Element - The current element the filter method is working on.
+2. Index - The index of the Element in the parent array.
+3. Array - The parent array the filter method is using.
+
+
+Let's do an example with our employees array of objects that we used earlier.
+We want to remove anyone that makes less than $100K.
+
+```js
+const employees = [
+    {name:'george',salary:30000},
+    {name:'George',salary:30000},
+    {name:'John',salary:25000},
+    {name:'sally',salary:363846},
+    {name:'Sam',salary:1000000},
+    {name:'gabe',salary:165000},
+    {name:'jacob',salary:30000}
+];
+let topEarners = employees.filter(el => el.salary >= 100000);
+```
+Output:
+```js
+[
+  { name: 'sally', salary: 363846 },
+  { name: 'Sam', salary: 1000000 },
+  { name: 'gabe', salary: 165000 }
+]
+```
+Let's do one more where this time we filter out all those that don't have at least 1 assistant.
+```js
+const employees = [
+    {name:'george',salary:30000, assistants: ['John']},
+    {name:'George',salary:30000},
+    {name:'John',salary:25000},
+    {name:'sally',salary:363846},
+    {name:'Sam',salary:1000000, assistants: ['sally','George']},
+    {name:'gabe',salary:165000},
+    {name:'jacob',salary:30000}
+];
+let employeesWithMultipleAssistants = employees.filter(el => el.assistants?.length > 1);
+```
+Output:
+```js
+[ { name: 'Sam', salary: 1000000, assistants: [ 'sally', 'George' ] } ]
+```
+The reason the above code doesn't blow an error is because of the question mark after el.assistants in the filter.
+This is called optional chaining and you can read more about it <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining">Here</a>
+
 
 
