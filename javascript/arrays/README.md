@@ -342,7 +342,7 @@ Output:
 [ { name: 'Sam', salary: 1000000, assistants: [ 'sally', 'George' ] } ]
 ```
 The reason the above code doesn't blow an error is because of the question mark after el.assistants in the filter.
-This is called optional chaining and you can read more about it <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining">Here</a>
+This is called optional chaining and you can read more about it <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining">Here</a>
 
 
 
