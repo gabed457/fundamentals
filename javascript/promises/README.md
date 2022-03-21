@@ -2,6 +2,7 @@
 
 ## Table of Contents
 - [Promise Fundamentals](#promise-fundamentals)
+  * [Table of Contents](#table-of-contents)
   * [Promise Basics](#promise-basics)
     + [Creating a Promise](#creating-a-promise)
   * [Why we need promises](#why-we-need-promises)
@@ -9,15 +10,15 @@
     + [Async](#async)
     + [Await](#await)
   * [Promise Methods](#promise-methods)
-    + [Promise.then()](#promisethen--)
-    + [Promise.catch()](#promisecatch--)
-    + [Promise.finally()](#promisefinally--)
-    + [Promise.reject()](#promisereject--)
-    + [Promise.resolve()](#promiseresolve--)
-    + [Promise.all()](#promiseall--)
-    + [Promise.allSettled()](#promiseallsettled--)
-    + [Promise.any()](#promiseany--)
-    + [Promise.race()](#promiserace--)
+    + [Promise.then](#promisethen)
+    + [Promise.catch](#promisecatch)
+    + [Promise.finally](#promisefinally)
+    + [Promise.reject](#promisereject)
+    + [Promise.resolve](#promiseresolve)
+    + [Promise.all](#promiseall)
+    + [Promise.allSettled](#promiseallsettled)
+    + [Promise.any](#promiseany)
+    + [Promise.race](#promiserace)
 
 
 ## Promise Basics
@@ -314,7 +315,7 @@ console.log("This logs first");
 
 ## Promise Methods
 
-### Promise.then()
+### Promise.then
 
 This method is normally used to run to create sequential code that needs to run after that promise has resolved. 
 
@@ -355,7 +356,7 @@ function main() {
 ```
 You can see that we use the then method to sequentially run the functions that calculate the weekly take home pay.
 
-### Promise.catch()
+### Promise.catch
 This is used to catch any errors from the promise. Here's a couple examples.
 
 ```js
@@ -375,7 +376,7 @@ promise2
 
 This method allows us to containerize our errors and allow the code to never "fail".
 
-### Promise.finally()
+### Promise.finally
 
 This method is used to containerize code that you might need to run in both your then and your catch methods. This code inside your then method will run after all the then methods and the catch method have finished.
 
@@ -402,7 +403,7 @@ checkMail()
   });
 ```
 
-### Promise.reject()
+### Promise.reject
 
 The Promise.reject() method returns a Promise object that is rejected with a given reason.
 ```js
@@ -419,7 +420,7 @@ function rejected(result) {
 Promise.reject(new Error('fail')).then(resolved, rejected);
 // expected output: Error: fail
 
-### Promise.resolve()
+### Promise.resolve
 
 The Promise.resolve() method returns a Promise object that is resolved with a given value. If the value is a promise, that promise is returned; if the value is a thenable (i.e. has a "then" method), the returned promise will "follow" that thenable, adopting its eventual state; otherwise the returned promise will be fulfilled with the value. This function flattens nested layers of promise-like objects (e.g. a promise that resolves to a promise that resolves to something) into a single layer.
 ```js
@@ -437,7 +438,7 @@ function rejected(result) {
 Promise.resolve(promise1).then(resolved, rejected);
 // expected output: Resolved
 ```
-### Promise.all()
+### Promise.all
 
 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all">Reference</a>
 
@@ -478,7 +479,7 @@ runSeries();
 runParallel();
 ```
 
-### Promise.allSettled()
+### Promise.allSettled
 
 This is valuable, and most used when each of the promises are independent of each other, in comparison with `Promise.all` where each promise is dependent on each other.
 Functionally though it works very similarly
@@ -500,7 +501,7 @@ Output:
 
 ```
 
-### Promise.any()
+### Promise.any
 
 This method returns the Promise that resolves the fastest, however it does run all of the promises at the same time. It does not return the one that's settled the fastest, just the one that resolves the fastest.
 
@@ -521,7 +522,7 @@ then((results) => console.log(results));
 //OUTPUT promise1
 ```
 
-### Promise.race()
+### Promise.race
 
 This method returns the Promise that resolves or rejects the fastest. 
 
