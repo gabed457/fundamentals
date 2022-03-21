@@ -24,7 +24,7 @@
 
 ### Creating a Promise
 
-One way you can create a promise is through the built in Promise Object
+One way you can create a promise is through the built in Promise Function.
 
 ```js
 var sayHello = new Promise(function (resolve, reject) {
