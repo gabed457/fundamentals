@@ -110,6 +110,35 @@
 //     return el => el.salary >= 100000;
 // });
 // console.log(topEarners);
+// const employees = [
+//     {name:'george',salary:30000, assistants: ['John']},
+//     {name:'George',salary:30000},
+//     {name:'John',salary:25000},
+//     {name:'sally',salary:363846},
+//     {name:'Sam',salary:1000000, assistants: ['sally','George']},
+//     {name:'gabe',salary:165000},
+//     {name:'jacob',salary:30000}
+// ];
+// let employeesWithMultipleAssistants = employees.filter(el => {
+//     console.log(el.assistants?.length > -1);
+//     return el.assistants?.length > 1;
+// });
+// console.log(employeesWithMultipleAssistants);
+
+// let numArr = [1, 3, 200, 5];
+// numArr.indexOf(3);
+// const employees = [
+//     {name:'george',salary:30000, assistants: ['John']},
+//     {name:'George',salary:30000},
+//     {name:'John',salary:25000},
+//     {name:'sally',salary:363846},
+//     {name:'Sam',salary:1000000, assistants: ['sally','George']},
+//     {name:'gabe',salary:165000},
+//     {name:'jacob',salary:30000}
+// ];
+// let employeeWith2AssistantsIndex = employees.findIndex(el => el.assistants?.length === 2);
+// console.log(employeeWith2AssistantsIndex);
+
 const employees = [
     {name:'george',salary:30000, assistants: ['John']},
     {name:'George',salary:30000},
@@ -119,8 +148,17 @@ const employees = [
     {name:'gabe',salary:165000},
     {name:'jacob',salary:30000}
 ];
-let employeesWithMultipleAssistants = employees.filter(el => {
-    console.log(el.assistants?.length > -1);
-    return el.assistants?.length > 1;
+let totalSalaries = employees.reduce((accumulator, currentElement) => {
+    if(typeof accumulator === 'object') {
+        accumulator = accumulator.salary;
+    }
+    return accumulator + currentElement.salary;
 });
-console.log(employeesWithMultipleAssistants);
+// console.log(totalSalaries)
+let totalSalariesBelow40 = employees.reduce((accumulator, currentElement) => {
+    if(typeof accumulator === 'object') {
+        accumulator = accumulator.salary;
+    }
+    return currentElement.salary < 40000 ? accumulator + currentElement.salary : accumulator;
+});
+console.log(totalSalariesBelow40);

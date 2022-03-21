@@ -342,7 +342,191 @@ Output:
 [ { name: 'Sam', salary: 1000000, assistants: [ 'sally', 'George' ] } ]
 ```
 The reason the above code doesn't blow an error is because of the question mark after el.assistants in the filter.
-This is called optional chaining and you can read more about it <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining">Here</a>
+This is called optional chaining and you can read more about it <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining">Here</a>
 
+### Array.forEach
+
+This method is basically a for loop on the array. It doesn't return anything it just makes it possible to shorthand the for loop itself.
+
+In the example below we will log every element in the array:
+```js
+const numArr = [1, 3, 200, 5, 0];
+numArr.forEach(el => console.log(el * 2));
+```
+Output:
+```js
+2
+6
+400
+10
+0
+```
+That's all it does, no more no less.
+
+### Array.map
+
+This method returns a new array that was created by applying your logic to the parent array.
+
+Here's an easy example:
+
+```js
+let numArr = [1, 3, 200, 5, 0];
+let doubledNumArr = numArr.map(el => el * 2);
+```
+Output:
+```js
+[ 2, 6, 400, 10, 0 ]
+```
+
+### Array.some
+
+This method returns a boolean and checks to if at least one element in the array tests positive according to your conditions.
+
+```js
+let numArr = [1, 3, 200, 5, 0, -1];
+let numContainsNegativeNumbers = numArr.some(el => el < 0);
+```
+Output:
+```js
+true
+```
+
+### Array.every
+
+This method returns a boolean and checks to if at all elements in the array tests positive according to your conditions.
+
+```js
+let numArr = [1, 3, 200, 5];
+let numArrContainsOnlyPositiveNumbers = numArr.every(el => el > 0);
+```
+Output: 
+```js
+true
+```
+
+### Array.includes
+
+This method checks to see if the element you are looking for is in the array.
+
+```js
+let numArr = [1, 3, 200, 5];
+let numArrContains3 = numArr.includes(3);
+```
+Output:
+```js
+true
+```
+
+### Array.indexOf
+
+This method gets the index of the element you are looking for in the area, if the element doesn't exist it returns -1.
+
+```js
+let numArr = [1, 3, 200, 5];
+numArr.indexOf(3);
+```
+Output:
+```js
+1
+```
+
+### Array.find
+
+This method returns the first element in the array that matches your conditions.
+
+```js
+const employees = [
+    {name:'george',salary:30000, assistants: ['John']},
+    {name:'George',salary:30000},
+    {name:'John',salary:25000},
+    {name:'sally',salary:363846},
+    {name:'Sam',salary:1000000, assistants: ['sally','George']},
+    {name:'gabe',salary:165000},
+    {name:'jacob',salary:30000}
+];
+let employeeWithAssistants = employees.find(el => el?.assistants);
+```
+Output:
+```js
+{ name: 'george', salary: 30000, assistants: [ 'John' ] }
+```
+
+### Array.findIndex
+
+This method is similar to indexOf, but instead takes a callback as a parameter & returns the index of the element that matches the conditions that you set in the callback function.
+
+```js
+const employees = [
+    {name:'george',salary:30000, assistants: ['John']},
+    {name:'George',salary:30000},
+    {name:'John',salary:25000},
+    {name:'sally',salary:363846},
+    {name:'Sam',salary:1000000, assistants: ['sally','George']},
+    {name:'gabe',salary:165000},
+    {name:'jacob',salary:30000}
+];
+let employeeWith2AssistantsIndex = employees.findIndex(el => el.assistants?.length === 2);
+```
+Output:
+```js
+4
+```
+
+### Array.reduce
+
+This method returns the output that you made after going through every single element. 
+
+This method has 4 parameters
+1. accumulator - Value that was returned in the last iteration of the callback function.
+2. currentValue - The current element the reduce method is working on.
+3. currentIndex - The index of the current value.
+4. array - The parent array the reduce method was passed.
+
+Let's use the employees element from above and let's say we wanted to see what the salaries were for everyone combined.
+```js
+const employees = [
+    {name:'george',salary:30000, assistants: ['John']},
+    {name:'George',salary:30000},
+    {name:'John',salary:25000},
+    {name:'sally',salary:363846},
+    {name:'Sam',salary:1000000, assistants: ['sally','George']},
+    {name:'gabe',salary:165000},
+    {name:'jacob',salary:30000}
+];
+let totalSalaries = employees.reduce((accumulator, currentElement) => {
+    if(typeof accumulator === 'object') {
+        accumulator = accumulator.salary;
+    }
+    return accumulator + currentElement.salary;
+});
+```
+Output:
+```js
+1643846
+```
+
+Let's do one more example, but only add all the people that have a salary that's less than $40K
+
+```js
+const employees = [
+    {name:'george',salary:30000, assistants: ['John']},
+    {name:'George',salary:30000},
+    {name:'John',salary:25000},
+    {name:'sally',salary:363846},
+    {name:'Sam',salary:1000000, assistants: ['sally','George']},
+    {name:'gabe',salary:165000},
+    {name:'jacob',salary:30000}
+];
+let totalSalariesBelow40 = employees.reduce((accumulator, currentElement) => {
+    if(typeof accumulator === 'object') {
+        accumulator = accumulator.salary;
+    }
+    return currentElement.salary < 40000 ? accumulator + currentElement.salary : accumulator;
+});
+```
+Output:
+```js
+115000
+```
 
 
