@@ -294,6 +294,93 @@ console.log("This logs first");
 
 ## Promise Methods
 
+### Promise.then()
+
+This method is normally used to run to create sequential code that needs to run after that promise has resolved. 
+
+If we look at the example from above again:
+```js
+class calcPay {
+    constructor(p) {
+        this.s = p;
+    }
+
+    getYearlyTakeHome() {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                this.s = this.s * .75;
+                resolve(this);
+            }, 500);
+        })
+    }
+
+    getMonthlyTakeHome() {
+        this.s = this.s / 12;
+
+    }
+
+    getWeeklyTakeHome() {
+        this.s = this.s / 4;
+    }
+}
+
+function main() {
+    var pay = new calcPay(250000);
+    pay.getYearlyTakeHome()
+        .then(pay.getMonthlyTakeHome())
+        .then(pay.getWeeklyTakeHome())
+        .then(() => console.log(pay.s));
+    //OUTPUT: 3906.25
+}
+```
+You can see that we use the then method to sequentially run the functions that calculate the weekly take home pay.
+
+### Promise.catch()
+This is used to catch any errors from the promise. Here's a couple examples.
+
+```js
+const promise1 = new Promise((resolve, reject) => {
+    setTimeout(reject, 500, 'error via reject');
+});
+const promise2 = new Promise((resolve, reject) => {
+    throw new Error('something happened');
+});
+promise1
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+promise2
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+```
+
+This method allows us to containerize our errors and allow the code to never "fail".
+
+### Promise.finally()
+
+This method is used to containerize code that you might need to run in both your then and your catch methods. This code inside your then method will run after all the then methods and the catch method have finished.
+
+```js
+function checkMail() {
+  return new Promise((resolve, reject) => {
+    if (Math.random() > 0.5) {
+      resolve('Mail has arrived');
+    } else {
+      reject(new Error('Failed to arrive'));
+    }
+  });
+}
+
+checkMail()
+  .then((mail) => {
+    console.log(mail);
+  })
+  .catch((err) => {
+    console.error(err);
+  })
+  .finally(() => {
+    console.log('Experiment completed');
+  });
+```
 ### Promise.all()
 
 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all">Reference</a>
@@ -355,4 +442,48 @@ Output:
   { status: 'rejected', reason: 'foo' }
 ]
 
+```
+
+### Promise.any()
+
+This method returns the Promise that resolves the fastest, however it does run all of the promises at the same time. It does not return the one that's settled the fastest, just the one that resolves the fastest.
+
+```js
+const promise1 = new Promise((resolve, reject) => {
+    setTimeout(resolve, 500, 'promise1');
+});
+const promise2 = new Promise((resolve, reject) => {
+    setTimeout(reject, 50, 'promise2');
+})
+const promise3 = new Promise((resolve, reject) => {
+    setTimeout(resolve, 1000, 'promise3');
+})
+const promises = [promise1, promise2, promise3];
+
+Promise.any(promises).
+then((results) => console.log(results));
+//OUTPUT promise1
+```
+
+### Promise.race()
+
+This method returns the Promise that resolves or rejects the fastest. 
+
+
+```js
+const promise1 = new Promise((resolve, reject) => {
+    setTimeout(resolve, 500, 'promise1');
+});
+const promise2 = new Promise((resolve, reject) => {
+    setTimeout(reject, 50, 'promise2 error');
+})
+const promise3 = new Promise((resolve, reject) => {
+    setTimeout(resolve, 1000, 'promise3');
+})
+const promises = [promise1, promise2, promise3];
+
+Promise.race(promises)
+    .then((results) => console.log(results))
+    .catch(err => console.log(err));
+    //OUTPUT promise2 error
 ```

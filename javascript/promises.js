@@ -282,9 +282,31 @@ import fetch from 'node-fetch';
 // runSeries();
 // runParallel();
 
-const promise1 = Promise.resolve(3);
-const promise2 = new Promise((resolve, reject) => setTimeout(reject, 100, 'foo'));
-const promises = [promise1, promise2];
+// const promise1 = new Promise((resolve, reject) => {
+//     setTimeout(resolve, 500, 'promise1');
+// });
+// const promise2 = new Promise((resolve, reject) => {
+//     setTimeout(reject, 50, 'promise2 error');
+// })
+// const promise3 = new Promise((resolve, reject) => {
+//     setTimeout(resolve, 1000, 'promise3');
+// })
+// const promises = [promise1, promise2, promise3];
+//
+// Promise.race(promises)
+//     .then((results) => console.log(results))
+//     .catch(err => console.log(err));
 
-Promise.allSettled(promises).
-then((results) => console.log(results));
+const promise1 = new Promise((resolve, reject) => {
+    setTimeout(reject, 500, 'error via reject');
+});
+const promise2 = new Promise((resolve, reject) => {
+    throw new Error('something happened');
+});
+promise1
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+promise2
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+
