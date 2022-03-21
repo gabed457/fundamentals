@@ -2,10 +2,10 @@
   "name": "javascript",
   "version": "1.0.0",
   "description": "",
-  "main": "keywords.js",
+  "main": "promises.js",
   "type": "module",
   "scripts": {
-    "start": "node keywords.js",
+    "start": "node promises.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

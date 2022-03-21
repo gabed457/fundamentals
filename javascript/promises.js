@@ -165,30 +165,30 @@ import fetch from 'node-fetch';
 // s = getWeeklyTakeHome(s);
 // console.log(s);
 
-function calcPay() {
-    this.s = 250000;
-
-    this.getYearlyTakeHome = function() {
-        setTimeout(() => { //Don't use function, use arrow function so 'this' refers to 'func' and not window
-            console.log('getYearlyTakeHome');
-            this.s = this.s * .75;
-        }, 500);
-    }
-    this.getMonthlyTakeHome = function () {
-        console.log('getMonthlyTakeHome');
-        this.s = this.s / 12;
-    }
-    this.getWeeklyTakeHome = function () {
-        console.log('getWeeklyTakeHome');
-        this.s = this.s / 4;
-    }
-}
-
-var pay = new calcPay();
-pay.getYearlyTakeHome();
-pay.getMonthlyTakeHome();
-pay.getWeeklyTakeHome();
-console.log(pay.s);
+// function calcPay() {
+//     this.s = 250000;
+//
+//     this.getYearlyTakeHome = function() {
+//         setTimeout(() => { //Don't use function, use arrow function so 'this' refers to 'func' and not window
+//             console.log('getYearlyTakeHome');
+//             this.s = this.s * .75;
+//         }, 500);
+//     }
+//     this.getMonthlyTakeHome = function () {
+//         console.log('getMonthlyTakeHome');
+//         this.s = this.s / 12;
+//     }
+//     this.getWeeklyTakeHome = function () {
+//         console.log('getWeeklyTakeHome');
+//         this.s = this.s / 4;
+//     }
+// }
+//
+// var pay = new calcPay();
+// pay.getYearlyTakeHome();
+// pay.getMonthlyTakeHome();
+// pay.getWeeklyTakeHome();
+// console.log(pay.s);
 
 
 // const promise1 = Promise.resolve(3);
@@ -204,3 +204,87 @@ console.log(pay.s);
 // Promise.all([promise1, promise2, promise3]).then((values) => {
 //     console.log(values);
 // });
+// let stack = [];
+// let queue = [];
+// console.log('main init');
+// stack.push('main');
+//
+// setTimeout(function () {
+//     console.log('timeout 1');
+// },0);
+// queue.push('timeout 1');
+// const p1 = new Promise((resolve, reject) => {
+//     setTimeout(resolve, 0, 'promise 1');
+// });
+// p1.then(res => console.log(res));
+// queue.push('promise 1');
+// function add(a, b) {
+//     stack.push('add');
+//     console.log('add init');
+//     return a + b;
+// }
+//
+// function average(a, b) {
+//     stack.push('average');
+//     console.log('average init');
+//     return add(a, b) / 2;
+// }
+//
+// let x = average(10, 20);
+//
+// console.table(stack);
+// console.table(queue);
+// let z = 23;
+// z.toString();
+// const promise1 = new Promise((resolve, reject) => {
+//     setTimeout(resolve, 1000, 'foo');
+// });
+// const promise2 = new Promise((resolve, reject) => {
+//     setTimeout(resolve, 1000, 'foo');
+// });
+// const promise3 = new Promise((resolve, reject) => {
+//     setTimeout(resolve, 1000, 'foo');
+// });
+// console.time('promises');
+//
+//
+// Promise.all([promise1, promise2, promise3]).then((values) => {
+//     console.log(values);
+//     console.timeEnd('promises');
+// });
+// async function waitSecond() {
+//     return new Promise((res, rej) => {
+//         setTimeout(res, 1000);
+//     });
+// }
+//
+// function runSeries() {
+//     console.time('series');
+//     waitSecond().then(() => {
+//         waitSecond().then(() => {
+//             waitSecond().then(() => {
+//                 console.timeEnd('series');
+//             });
+//         });
+//     });
+// }
+//
+// function runParallel() {
+//     console.time('parallel');
+//     Promise.all([
+//         waitSecond(),
+//         waitSecond(),
+//         waitSecond(),
+//     ]).then(() => {
+//         console.timeEnd('parallel');
+//     });
+// }
+// runSeries();
+// runParallel();
+
+const promise1 = Promise.resolve(3);
+const promise2 = new Promise((resolve, reject) => setTimeout(reject, 100, 'foo'));
+const promises = [promise1, promise2];
+
+Promise.allSettled(promises).
+then((results) => console.log(results));

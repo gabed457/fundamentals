@@ -299,41 +299,60 @@ console.log("This logs first");
 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all">Reference</a>
 
 `Promise.all` waits for all the promises to resolve or for the first one to reject, then returns a Promise that resolves
-to an array of input Promises.
+to an array of input Promises. The key here is that all the promises start at the same time. Below you can see that by using `Promise.all` we are able to save 2 seconds of computational power using the `Promise.all` method.
 
 ```js
-var p1 = Promise.resolve(3);
-var p2 = 1337;
-var p3 = new Promise((resolve, reject) => {
-    setTimeout(() => {
-        resolve("foo");
-    }, 100);
-});
-
-Promise.all([p1, p2, p3]).then(values => {
-    console.log(values); // [3, 1337, "foo"]
-});
-```
-
-Table
-```js
-function Person(firstName, lastName) {
-    this.firstName = firstName;
-    this.lastName = lastName;
+async function waitSecond() {
+    return new Promise((res, rej) => {
+        setTimeout(res, 1000);
+    });
 }
 
-var john = new Person("John", "Smith");
-var jane = new Person("Jane", "Doe");
-var emily = new Person("Emily", "Jones");
+function runSeries() {
+    console.time('series');
+    waitSecond().then(() => {
+        waitSecond().then(() => {
+            waitSecond().then(() => {
+                console.timeEnd('series');
+                //OUTPUT: 3.030s
+            });
+        });
+    });
+}
 
-console.table([john, jane, emily]);
+function runParallel() {
+    console.time('parallel');
+    Promise.all([
+        waitSecond(),
+        waitSecond(),
+        waitSecond(),
+    ]).then(() => {
+        console.timeEnd('parallel');
+        //OUTPUT: 1.005s
+    });
+}
+runSeries();
+runParallel();
 ```
-```bash
-┌─────────┬───────────┬──────────┐
-│ (index) │ firstName │ lastName │
-├─────────┼───────────┼──────────┤
-│    0    │  'John'   │ 'Smith'  │
-│    1    │  'Jane'   │  'Doe'   │
-│    2    │  'Emily'  │ 'Jones'  │
-└─────────┴───────────┴──────────┘
+
+### Promise.allSettled()
+
+This is valuable, and most used when each of the promises are independent of each other, in comparison with `Promise.all` where each promise is dependent on each other.
+Functionally though it works very similarly
+
+```js
+const promise1 = Promise.resolve(3);
+const promise2 = new Promise((resolve, reject) => setTimeout(reject, 100, 'foo'));
+const promises = [promise1, promise2];
+
+Promise.allSettled(promises).
+then((results) => console.log(results));
+```
+Output:
+```js
+[
+  { status: 'fulfilled', value: 3 },
+  { status: 'rejected', reason: 'foo' }
+]
+
 ```
