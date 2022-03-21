@@ -297,16 +297,41 @@ import fetch from 'node-fetch';
 //     .then((results) => console.log(results))
 //     .catch(err => console.log(err));
 
+// const promise1 = new Promise((resolve, reject) => {
+//     setTimeout(reject, 500, 'error via reject');
+// });
+// const promise2 = new Promise((resolve, reject) => {
+//     throw new Error('something happened');
+// });
+// promise1
+//     .then(res => console.log(res))
+//     .catch(err => console.log(err));
+// promise2
+//     .then(res => console.log(res))
+//     .catch(err => console.log(err));
+
+// function resolved(result) {
+//     console.log('Resolved');
+// }
+//
+// function rejected(result) {
+//     console.error(result);
+// }
+//
+// Promise.reject(new Error('fail')).then(resolved, rejected);
+//// expected output: Error: fail
+
 const promise1 = new Promise((resolve, reject) => {
-    setTimeout(reject, 500, 'error via reject');
+    resolve('promise 1 has resolved')
 });
-const promise2 = new Promise((resolve, reject) => {
-    throw new Error('something happened');
-});
-promise1
-    .then(res => console.log(res))
-    .catch(err => console.log(err));
-promise2
-    .then(res => console.log(res))
-    .catch(err => console.log(err));
+function resolved(result) {
+    console.log('Resolved');
+}
+
+function rejected(result) {
+    console.error(result);
+}
+
+Promise.resolve(promise1).then(resolved, rejected);
+// expected output: Resolved
 

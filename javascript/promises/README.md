@@ -381,6 +381,42 @@ checkMail()
     console.log('Experiment completed');
   });
 ```
+
+### Promise.reject()
+
+The Promise.reject() method returns a Promise object that is rejected with a given reason.
+```js
+
+```
+function resolved(result) {
+  console.log('Resolved');
+}
+
+function rejected(result) {
+  console.error(result);
+}
+
+Promise.reject(new Error('fail')).then(resolved, rejected);
+// expected output: Error: fail
+
+### Promise.resolve()
+
+The Promise.resolve() method returns a Promise object that is resolved with a given value. If the value is a promise, that promise is returned; if the value is a thenable (i.e. has a "then" method), the returned promise will "follow" that thenable, adopting its eventual state; otherwise the returned promise will be fulfilled with the value. This function flattens nested layers of promise-like objects (e.g. a promise that resolves to a promise that resolves to something) into a single layer.
+```js
+const promise1 = new Promise((resolve, reject) => {
+    resolve('promise 1 has resolved')
+});
+function resolved(result) {
+    console.log('Resolved');
+}
+
+function rejected(result) {
+    console.error(result);
+}
+
+Promise.resolve(promise1).then(resolved, rejected);
+// expected output: Resolved
+```
 ### Promise.all()
 
 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all">Reference</a>
