@@ -45,7 +45,7 @@ let keywords = [
     'with',
     'yield'
 ];
-import fetch from 'node-fetch';
+// import fetch from 'node-fetch';
 // async function fetchProducts() {
 //     try {
 //         // after this line, our function will wait for the `fetch()` call to be settled
@@ -321,17 +321,29 @@ import fetch from 'node-fetch';
 // Promise.reject(new Error('fail')).then(resolved, rejected);
 //// expected output: Error: fail
 
+// const promise1 = new Promise((resolve, reject) => {
+//     resolve('promise 1 has resolved')
+// });
+// function resolved(result) {
+//     console.log('Resolved');
+// }
+//
+// function rejected(result) {
+//     console.error(result);
+// }
+//
+// Promise.resolve(promise1).then(resolved, rejected);
+// expected output: Resolved
+
 const promise1 = new Promise((resolve, reject) => {
     resolve('promise 1 has resolved')
 });
-function resolved(result) {
-    console.log('Resolved');
-}
-
-function rejected(result) {
-    console.error(result);
-}
-
-Promise.resolve(promise1).then(resolved, rejected);
-// expected output: Resolved
-
+const promise2 = new Promise((resolve, reject) => {
+    resolve('promise 2 has resolved')
+});
+const promise3 = new Promise((resolve, reject) => {
+    resolve('promise 3 has resolved')
+});
+Promise.all([promise1, promise2, promise3])
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
